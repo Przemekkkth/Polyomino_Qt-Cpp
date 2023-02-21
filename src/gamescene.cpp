@@ -12,9 +12,9 @@
 
 
 GameScene::GameScene(QObject *parent)
-    : QGraphicsScene(parent)
+    : QGraphicsScene(parent), level(1)
 {
-    initGame(5);
+    initGame();
 
     setBackgroundBrush(Qt::black);
     for(int i = 0; i < 256; ++i)
@@ -27,7 +27,7 @@ GameScene::GameScene(QObject *parent)
 
 }
 
-void GameScene::initGame(int level)
+void GameScene::initGame()
 {
     mGame.initBoard(level);
     srand(time(0));
@@ -40,11 +40,12 @@ void GameScene::initGame(int level)
     isGenerateNewPiece = true;
 }
 
-void GameScene::startGame()
+void GameScene::startGame(int choosenLevel)
 {
     m_timer.start(int(1000.0f/FPS));
     m_elapsedTimer.start();
-    initGame(5);
+    level = choosenLevel;
+    initGame();
 }
 
 void GameScene::stopGame()
@@ -325,7 +326,7 @@ void GameScene::handlePlayerInput()
     {
         if(bGameOver)
         {
-            initGame(5);
+            initGame();
         }
     }
     if(bMoveLeft)

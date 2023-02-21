@@ -4,7 +4,8 @@
 
 View::View()
     : m_gameScene(new GameScene(this)),
-    m_titleScene(new TitleScene(this))
+    m_titleScene(new TitleScene(this)),
+    m_menuScene(new MenuScene(this))
 {
     setScene(m_titleScene);
     resize(m_gameScene->sceneRect().width()+2, m_gameScene->sceneRect().height()+2);
@@ -15,8 +16,11 @@ View::View()
 
 
     connect(m_titleScene, &TitleScene::menuActivated, [this](){
+        setScene(m_menuScene);
+    });
+    connect(m_menuScene, &MenuScene::gameActivated, [this](int level){
+        m_gameScene->startGame(level);
         setScene(m_gameScene);
-        m_gameScene->startGame();
     });
 }
 

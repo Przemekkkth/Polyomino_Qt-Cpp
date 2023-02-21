@@ -31,8 +31,8 @@ class GameScene : public QGraphicsScene
 public:
     explicit GameScene(QObject *parent = nullptr);
 
-    void initGame(int level);
-    void startGame();
+    void initGame();
+    void startGame(int choosenLevel);
     void stopGame();
 signals:
 
@@ -63,6 +63,7 @@ private:
     std::vector<int> vLines;
     bool bGameOver = false;
     bool isGenerateNewPiece = false;
+    int level;
 
 
 
