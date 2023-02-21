@@ -242,7 +242,7 @@ void GameScene::drawNextPiece()
     font.setPointSize(20);
     font.setBold(true);
     nextItem->setFont(font);
-    nextItem->setPos(SCREEN::PHYSICAL_SIZE.width() - (mGame.COUNT_OF_BLOCKS-1)*Polyomino::GRID_SIZE, mGame.OFFSET_Y+75);
+    nextItem->setPos(SCREEN::PHYSICAL_SIZE.width() - (4)*Polyomino::GRID_SIZE, mGame.OFFSET_Y+75);
     nextItem->setBrush(Qt::white);
     nextItem->setText("Next: ");
     addItem(nextItem);
