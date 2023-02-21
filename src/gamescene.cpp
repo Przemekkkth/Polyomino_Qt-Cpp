@@ -50,6 +50,8 @@ void GameScene::startGame(int choosenLevel)
 
 void GameScene::stopGame()
 {
+    clear();
+    bGameOver = false;
     m_timer.stop();
 }
 
@@ -338,6 +340,19 @@ void GameScene::handlePlayerInput()
         {
             initGame();
         }
+    }
+    if(m_keys[KEYBOARD::KEY_BACKSPACE]->m_released)
+    {
+        if(bGameOver)
+        {
+            stopGame();
+            emit menuActivated();
+        }
+    }
+
+    if(bGameOver)
+    {
+        bMoveDown = bMoveLeft = bMoveRight = bRotate = false;
     }
     if(bMoveLeft)
     {

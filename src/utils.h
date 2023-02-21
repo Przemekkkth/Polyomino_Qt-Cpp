@@ -46,14 +46,15 @@ static constexpr const int KEY_B = 33;
 static constexpr const int KEY_N = 34;
 static constexpr const int KEY_M = 35;
 
-static constexpr const int KEY_SPACE = 36;
-static constexpr const int KEY_LEFT  = 37;
-static constexpr const int KEY_RIGHT = 38;
-static constexpr const int KEY_UP    = 39;
-static constexpr const int KEY_DOWN  = 40;
-static constexpr const int KEY_TAB   = 41;
+static constexpr const int KEY_SPACE     = 36;
+static constexpr const int KEY_LEFT      = 37;
+static constexpr const int KEY_RIGHT     = 38;
+static constexpr const int KEY_UP        = 39;
+static constexpr const int KEY_DOWN      = 40;
+static constexpr const int KEY_TAB       = 41;
+static constexpr const int KEY_BACKSPACE = 42;
 
-static constexpr const int COUNT_OF_KEYS = 42;
+static constexpr const int COUNT_OF_KEYS = 43;
 
 static const QMap<int, int> KeysMapper =
 {
@@ -102,8 +103,9 @@ static const QMap<int, int> KeysMapper =
     {static_cast<int>(Qt::Key_Right),  KEY_RIGHT},
     {static_cast<int>(Qt::Key_Up),     KEY_UP},
     {static_cast<int>(Qt::Key_Down),   KEY_DOWN},
-    {static_cast<int>(Qt::Key_Tab),    KEY_TAB}
+    {static_cast<int>(Qt::Key_Tab),    KEY_TAB},
 
+    {static_cast<int>(Qt::Key_Backspace),    KEY_BACKSPACE}
 };
 }
 

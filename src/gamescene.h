@@ -35,7 +35,7 @@ public:
     void startGame(int choosenLevel);
     void stopGame();
 signals:
-
+    void menuActivated();
 private slots:
     void loop();
 

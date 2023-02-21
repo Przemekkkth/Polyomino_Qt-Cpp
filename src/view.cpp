@@ -22,6 +22,9 @@ View::View()
         m_gameScene->startGame(level);
         setScene(m_gameScene);
     });
+    connect(m_gameScene, &GameScene::menuActivated, [this](){
+        setScene(m_menuScene);
+    });
 }
 
 void View::keyReleaseEvent(QKeyEvent *event)
