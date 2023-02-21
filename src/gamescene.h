@@ -31,6 +31,8 @@ class GameScene : public QGraphicsScene
 public:
     explicit GameScene(QObject *parent = nullptr);
 
+    void initGame(int level);
+
 signals:
 
 private slots:

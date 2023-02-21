@@ -10,20 +10,13 @@
 #include <QDir>
 #include <QPainter>
 
+
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(parent)
 {
-    setBackgroundBrush(Qt::black);
-    mGame.initBoard(5);
-    srand(time(0));
-    nCurrentX = mGame.FIELD_WIDTH / 2;
-    nCurrentY = 0;
-    nCurrentRotation = 0;
-    nCurrentPiece = rand() % mGame.COUNT_OF_PIECES;
-    nNextPiece = rand() % mGame.COUNT_OF_PIECES;
-    bMoveLeft = bMoveRight = bRotate = false;
-    isGenerateNewPiece = true;
+    initGame(5);
 
+    setBackgroundBrush(Qt::black);
     for(int i = 0; i < 256; ++i)
     {
         m_keys[i] = new KeyStatus();
@@ -33,6 +26,19 @@ GameScene::GameScene(QObject *parent)
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
     m_timer.start(int(1000.0f/FPS));
     m_elapsedTimer.start();
+}
+
+void GameScene::initGame(int level)
+{
+    mGame.initBoard(level);
+    srand(time(0));
+    nCurrentX = mGame.FIELD_WIDTH / 2;
+    nCurrentY = 0;
+    nCurrentRotation = 0;
+    nCurrentPiece = rand() % mGame.COUNT_OF_PIECES;
+    nNextPiece = rand() % mGame.COUNT_OF_PIECES;
+    bMoveLeft = bMoveRight = bRotate = false;
+    isGenerateNewPiece = true;
 }
 
 void GameScene::renderGameScene()
@@ -58,88 +64,84 @@ void GameScene::loop()
     {
         m_loopTime -= m_loopSpeed;
         handlePlayerInput();
-        nSpeedCount++;
-        bForceDown = (nSpeedCount == nSpeed);
-        if (bForceDown)
+        if(!bGameOver)
         {
-            // Update difficulty every 50 pieces
-            nSpeedCount = 0;
-            nPieceCount++;
-            if (nPieceCount % 50 == 0)
+            nSpeedCount++;
+            bForceDown = (nSpeedCount == nSpeed);
+            if (bForceDown)
             {
-                if (nSpeed >= 10)
+                // Update difficulty every 50 pieces
+                nSpeedCount = 0;
+                nPieceCount++;
+                if (nPieceCount % 50 == 0)
                 {
-                    nSpeed--;
-                }
-            }
-
-
-            // Test if piece can be moved down
-            if (mGame.doesPieceFit(nCurrentPiece, nCurrentRotation, nCurrentX, nCurrentY + 1))
-            {
-                nCurrentY++; // It can, so do it!
-            }
-            else
-            {
-                // It can't! Lock the piece in place
-                for (int px = 0; px < mGame.COUNT_OF_BLOCKS; px++)
-                {
-                    for (int py = 0; py < mGame.COUNT_OF_BLOCKS; py++)
+                    if (nSpeed >= 10)
                     {
-                        if(mGame.getElementOfPiece(nCurrentPiece, mGame.rotate(px, py, nCurrentRotation)) != '.')
-                        {
-                            mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + (nCurrentX + px)] = nCurrentPiece+1;
-                        }
-
+                        nSpeed--;
                     }
-
                 }
 
-                // Check for lines
-                for (int py = 0; py < mGame.COUNT_OF_BLOCKS; py++)
+
+                // Test if piece can be moved down
+                if (mGame.doesPieceFit(nCurrentPiece, nCurrentRotation, nCurrentX, nCurrentY + 1))
                 {
-                    if(nCurrentY + py < mGame.FIELD_HEIGHT - 1)
+                    nCurrentY++; // It can, so do it!
+                }
+                else
+                {
+                    // It can't! Lock the piece in place
+                    for (int px = 0; px < mGame.COUNT_OF_BLOCKS; px++)
                     {
-                        bool bLine = true;
-                        for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
+                        for (int py = 0; py < mGame.COUNT_OF_BLOCKS; py++)
                         {
-                            bLine &= (mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + px]) != 0;
-                        }
-
-
-                        if (bLine)
-                        {
-                            // Remove Line, set to =
-                            for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
+                            if(mGame.getElementOfPiece(nCurrentPiece, mGame.rotate(px, py, nCurrentRotation)) != '.')
                             {
-                                mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + px] = Polyomino::ANIM_BLOCK;
+                                mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + (nCurrentX + px)] = nCurrentPiece+1;
                             }
 
-//                            mTarget.clear();
-//                            drawField();
-//                            mTarget.display();
-//                            sf::sleep(sf::milliseconds(50));
-//                            mSounds.play(SoundEffect::FilledRow);
+                        }
+
+                    }
+
+                    // Check for lines
+                    for (int py = 0; py < mGame.COUNT_OF_BLOCKS; py++)
+                    {
+                        if(nCurrentY + py < mGame.FIELD_HEIGHT - 1)
+                        {
+                            bool bLine = true;
+                            for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
+                            {
+                                bLine &= (mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + px]) != 0;
+                            }
 
 
-                            vLines.push_back(nCurrentY + py);
+                            if (bLine)
+                            {
+                                // Remove Line, set to =
+                                for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
+                                {
+                                    mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + px] = Polyomino::ANIM_BLOCK;
+                                }
+
+                                vLines.push_back(nCurrentY + py);
+                            }
                         }
                     }
+
+
+
+                    nScore += 25;
+
+
+                    if(!vLines.empty())	nScore += (1 << vLines.size()) * 100;
+
+                    isGenerateNewPiece = true;
+
+
+
                 }
 
-
-
-                nScore += 25;
-
-
-                if(!vLines.empty())	nScore += (1 << vLines.size()) * 100;
-
-                isGenerateNewPiece = true;
-
-
-
             }
-
         }
         bMoveLeft = bMoveRight = bRotate = false;
 
@@ -308,7 +310,13 @@ void GameScene::handlePlayerInput()
     {
         bMoveDown = false;
     }
-
+    if(m_keys[KEYBOARD::KEY_R]->m_released)
+    {
+        if(bGameOver)
+        {
+            initGame(5);
+        }
+    }
     if(bMoveLeft)
     {
         if(mGame.doesPieceFit(nCurrentPiece, nCurrentRotation, nCurrentX - 1, nCurrentY))
