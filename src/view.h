@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 #include "gamescene.h"
+#include "titlescene.h"
 
 class View : public QGraphicsView
 {
@@ -14,7 +15,7 @@ signals:
 
 private:
     GameScene* m_gameScene;
-
+    TitleScene* m_titleScene;
     // QWidget interface
 protected:
     virtual void keyReleaseEvent(QKeyEvent *event) override;

@@ -3,14 +3,21 @@
 #include <QApplication>
 
 View::View()
-    : m_gameScene(new GameScene(this))
+    : m_gameScene(new GameScene(this)),
+    m_titleScene(new TitleScene(this))
 {
-    setScene(m_gameScene);
+    setScene(m_titleScene);
     resize(m_gameScene->sceneRect().width()+2, m_gameScene->sceneRect().height()+2);
 
     setMouseTracking(true);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+
+    connect(m_titleScene, &TitleScene::menuActivated, [this](){
+        setScene(m_gameScene);
+        m_gameScene->startGame();
+    });
 }
 
 void View::keyReleaseEvent(QKeyEvent *event)

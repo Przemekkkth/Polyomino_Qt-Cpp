@@ -7,7 +7,7 @@ class PixmapManager
 {
 public:
     enum class TextureID{
-        Title, Buttons, ButtonUnselected, ButtonSelected, Blocks
+        Title, Buttons, ButtonUnselected, ButtonSelected, Blocks, QtLogo
     };
     static PixmapManager* Instance();
     QPixmap& getPixmap(TextureID id);

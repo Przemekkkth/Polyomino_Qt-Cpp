@@ -24,8 +24,7 @@ GameScene::GameScene(QObject *parent)
     m_mouse = new MouseStatus();
     setSceneRect(0,0, SCREEN::PHYSICAL_SIZE.width(), SCREEN::PHYSICAL_SIZE.height());
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
-    m_timer.start(int(1000.0f/FPS));
-    m_elapsedTimer.start();
+
 }
 
 void GameScene::initGame(int level)
@@ -39,6 +38,18 @@ void GameScene::initGame(int level)
     nNextPiece = rand() % mGame.COUNT_OF_PIECES;
     bMoveLeft = bMoveRight = bRotate = false;
     isGenerateNewPiece = true;
+}
+
+void GameScene::startGame()
+{
+    m_timer.start(int(1000.0f/FPS));
+    m_elapsedTimer.start();
+    initGame(5);
+}
+
+void GameScene::stopGame()
+{
+    m_timer.stop();
 }
 
 void GameScene::renderGameScene()

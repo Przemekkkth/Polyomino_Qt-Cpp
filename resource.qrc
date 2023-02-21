@@ -4,5 +4,6 @@
         <file>res/minecraft.ttf</file>
         <file>res/buttons.png</file>
         <file>res/blocks.png</file>
+        <file>res/Qt_logo.png</file>
     </qresource>
 </RCC>

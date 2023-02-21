@@ -32,7 +32,8 @@ public:
     explicit GameScene(QObject *parent = nullptr);
 
     void initGame(int level);
-
+    void startGame();
+    void stopGame();
 signals:
 
 private slots:

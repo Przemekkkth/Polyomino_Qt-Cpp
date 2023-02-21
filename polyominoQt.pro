@@ -7,6 +7,7 @@ HEADERS += \
     src/pixmapmanager.h \
     src/polyomino.h \
     src/resource_holder.h \
+    src/titlescene.h \
     src/utils.h \
     src/view.h \
 
@@ -16,6 +17,7 @@ SOURCES += \
     src/main.cpp \
     src/pixmapmanager.cpp \
     src/polyomino.cpp \
+    src/titlescene.cpp \
     src/view.cpp \
 
 RESOURCES += \
