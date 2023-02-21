@@ -157,13 +157,24 @@ void GameScene::loop()
         }
         bMoveLeft = bMoveRight = bRotate = false;
 
+
+        clear();
+
+        renderAll();
+
         if (!vLines.empty())
         {
+            m_timer.stop();
+            QTimer::singleShot(400, [this]()
+            {
+                m_timer.start(m_loopSpeed);
+            });
             for (auto &v : vLines)
                 for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
                 {
                     for (int py = v; py > 0; py--)
                         mGame.field()[py * mGame.FIELD_WIDTH + px] = mGame.field()[(py - 1) * mGame.FIELD_WIDTH + px];
+
                     mGame.field()[px] = 0;
                 }
 
@@ -185,16 +196,15 @@ void GameScene::loop()
         }
 
 
-        clear();
-        renderAll();
         resetStatus();
     }
 }
 
 void GameScene::renderAll()
 {
-    drawField();
     drawCurrentPiece();
+    drawField();
+
     drawNextPiece();
     drawScore();
     if(bGameOver)
