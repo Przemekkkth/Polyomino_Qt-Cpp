@@ -20,3 +20,5 @@ Simple Tetris-like game for 1,2,3,4,5-blocks. Written in Qt/C++.
 * [Qt](https://www.qt.io/) - page of Qt project
 * [Github inspiration](https://github.com/OneLoneCoder/Javidx9/blob/master/SimplyCode/OneLoneCoder_Tetris.cpp) - game logics
 * [Font](https://www.dafont.com/craftron-gaming.d6128) - page of author on dafont.com
+* [Play online](https://przemekkkth.github.io/polyomino/) - game hosted on github
+* [yt](https://youtu.be/5MFxjR8c9yU) - gameplay
