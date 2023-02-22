@@ -102,7 +102,7 @@ void MenuScene::keyReleaseEvent(QKeyEvent *event)
     {
         return;
     }
-    if(event->key() == Qt::Key_Up)
+    if(event->key() == Qt::Key_Up || event->key() == Qt::Key_W)
     {
         getActiveButton()->setPixmap(PixmapManager::Instance()->getPixmap(PixmapManager::TextureID::ButtonUnselected));
         currentIndex--;
@@ -112,7 +112,7 @@ void MenuScene::keyReleaseEvent(QKeyEvent *event)
         }
         getActiveButton()->setPixmap(PixmapManager::Instance()->getPixmap(PixmapManager::TextureID::ButtonSelected));
     }
-    else if(event->key() == Qt::Key_Down)
+    else if(event->key() == Qt::Key_Down || event->key() == Qt::Key_S)
     {
         getActiveButton()->setPixmap(PixmapManager::Instance()->getPixmap(PixmapManager::TextureID::ButtonUnselected));
         currentIndex++;

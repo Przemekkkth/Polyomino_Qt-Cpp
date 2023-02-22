@@ -343,19 +343,19 @@ void GameScene::drawPauseText()
 
 void GameScene::handlePlayerInput()
 {
-    if(m_keys[KEYBOARD::KEY_LEFT]->m_released)
+    if(m_keys[KEYBOARD::KEY_LEFT]->m_released || m_keys[KEYBOARD::KEY_A]->m_released)
     {
         bMoveLeft = true;
     }
-    if(m_keys[KEYBOARD::KEY_RIGHT]->m_released)
+    if(m_keys[KEYBOARD::KEY_RIGHT]->m_released || m_keys[KEYBOARD::KEY_D]->m_released)
     {
         bMoveRight = true;
     }
-    if(m_keys[KEYBOARD::KEY_UP]->m_released)
+    if(m_keys[KEYBOARD::KEY_UP]->m_released || m_keys[KEYBOARD::KEY_W]->m_released)
     {
         bRotate = true;
     }
-    if(m_keys[KEYBOARD::KEY_DOWN]->m_pressed)
+    if(m_keys[KEYBOARD::KEY_DOWN]->m_pressed || m_keys[KEYBOARD::KEY_S]->m_pressed)
     {
         bMoveDown = true;
     }
