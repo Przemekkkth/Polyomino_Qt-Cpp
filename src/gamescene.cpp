@@ -52,6 +52,7 @@ void GameScene::stopGame()
 {
     clear();
     bGameOver = false;
+    bPause = false;
     m_timer.stop();
 }
 
@@ -78,7 +79,7 @@ void GameScene::loop()
     {
         m_loopTime -= m_loopSpeed;
         handlePlayerInput();
-        if(!bGameOver)
+        if(!bGameOver && !bPause)
         {
             nSpeedCount++;
             bForceDown = (nSpeedCount == nSpeed);
@@ -213,6 +214,10 @@ void GameScene::renderAll()
     {
         drawGameOverText();
     }
+    if(bPause)
+    {
+        drawPauseText();
+    }
 }
 
 void GameScene::drawField()
@@ -312,6 +317,30 @@ void GameScene::drawGameOverText()
     addItem(goItem);
 }
 
+void GameScene::drawPauseText()
+{
+    QGraphicsSimpleTextItem* goItem = new QGraphicsSimpleTextItem();
+    QFont font = FontManager::Instance()->getFont(FontManager::FontID::Main);
+    font.setPointSize(50);
+    font.setBold(true);
+    goItem->setFont(font);
+    goItem->setBrush(Qt::red);
+    goItem->setText("     Pause\n"
+                    "p - resume\n"
+                    "backspace - menu");
+    goItem->setPos(SCREEN::PHYSICAL_SIZE.width()/2-goItem->boundingRect().width()/2,
+                   SCREEN::PHYSICAL_SIZE.height()/2-goItem->boundingRect().height()/2);
+
+    QGraphicsRectItem *rItem = new QGraphicsRectItem();
+    rItem->setPos(goItem->pos());
+    rItem->setRect(goItem->boundingRect());
+    rItem->setBrush(Qt::black);
+    rItem->setPen(QPen(Qt::white,2));
+
+    addItem(rItem);
+    addItem(goItem);
+}
+
 void GameScene::handlePlayerInput()
 {
     if(m_keys[KEYBOARD::KEY_LEFT]->m_released)
@@ -343,14 +372,21 @@ void GameScene::handlePlayerInput()
     }
     if(m_keys[KEYBOARD::KEY_BACKSPACE]->m_released)
     {
-        if(bGameOver)
+        if(bGameOver || bPause)
         {
             stopGame();
             emit menuActivated();
         }
     }
 
-    if(bGameOver)
+    if(m_keys[KEYBOARD::KEY_P]->m_released)
+    {
+        if(!bGameOver)
+        {
+            bPause = !bPause;
+        }
+    }
+    if(bGameOver || bPause)
     {
         bMoveDown = bMoveLeft = bMoveRight = bRotate = false;
     }

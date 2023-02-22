@@ -36,7 +36,7 @@ MenuScene::MenuScene(QObject *parent)
     pentominoButton = new QGraphicsPixmapItem();
     pentominoButton->setPixmap(PixmapManager::Instance()->getPixmap(PixmapManager::TextureID::ButtonUnselected));
     pentominoButton->setPos(SCREEN::PHYSICAL_SIZE.width()/2-pentominoButton->boundingRect().width()/2, 500);
-    addTextToButton(pentominoButton, "Pentomion");
+    addTextToButton(pentominoButton, "Pentomino");
 
     exitButton      = new QGraphicsPixmapItem();
     exitButton->setPixmap(PixmapManager::Instance()->getPixmap(PixmapManager::TextureID::ButtonUnselected));

@@ -46,6 +46,7 @@ private:
     void drawNextPiece();
     void drawScore();
     void drawGameOverText();
+    void drawPauseText();
 
     Polyomino mGame;
     bool bMoveLeft, bMoveRight, bMoveDown, bRotate;
@@ -62,6 +63,7 @@ private:
     int nScore = 0;
     std::vector<int> vLines;
     bool bGameOver = false;
+    bool bPause = false;
     bool isGenerateNewPiece = false;
     int level;
 
