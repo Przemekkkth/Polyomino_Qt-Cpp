@@ -18,6 +18,5 @@ Simple Tetris-like game for 1,2,3,4,5-blocks. Written in Qt/C++.
 
 ## Addons
 * [Qt](https://www.qt.io/) - page of Qt project
-* [Github inspiration](https://github.com/SFML/SFML-Game-Development-Book) - many concepts of this book is used in project
-* [Github inspiration 1](https://github.com/OneLoneCoder/Javidx9/blob/master/SimplyCode/OneLoneCoder_Tetris.cpp) - game logics
+* [Github inspiration](https://github.com/OneLoneCoder/Javidx9/blob/master/SimplyCode/OneLoneCoder_Tetris.cpp) - game logics
 * [Font](https://www.dafont.com/craftron-gaming.d6128) - page of author on dafont.com
